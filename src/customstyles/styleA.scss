@@ -1,0 +1,36 @@
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$warn: mat-palette($mat-red);
+
+$mat-indigo-theme: mat-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+$mat-indigo-theme-dark: mat-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+
+.mat-indigo-theme-dark{
+    @include angular-material-theme($mat-indigo-theme-dark);
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+    
+  } 
+  
+  .mat-indigo-theme{
+    @include angular-material-theme($mat-indigo-theme);
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+  }
+  

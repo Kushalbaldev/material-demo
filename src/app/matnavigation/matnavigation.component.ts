@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, Output, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import {MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-matnavigation',
@@ -10,10 +11,12 @@ import {MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./matnavigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatnavigationComponent {
+export class MatnavigationComponent implements OnInit {
 
   @Output()
-  readonly darkModeSwitched= new EventEmitter<boolean>();
+  readonly themeSwitched = new EventEmitter<string>();
+
+  selectedTheme: string = 'mat-indigo-theme';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -21,10 +24,27 @@ export class MatnavigationComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver) {
 
-  onDarkModeSwitched(togglechange:MatSlideToggleChange){
-    this.darkModeSwitched.emit(togglechange.checked);
+  }
+  ngOnInit(): void {
+  }
+
+
+  matThemes: string[] = ['mat-indigo-theme', 'mat-deep-purple-theme', 'mat-pink-blue-theme'];
+
+
+  themeChanged(event: MatRadioChange) {
+    this.selectedTheme = event.value;
+    this.themeSwitched.emit(this.selectedTheme);
+  }
+
+  onDarkModeSwitched(togglechange: MatSlideToggleChange) {
+    if (togglechange.checked) {
+      this.themeSwitched.emit(this.selectedTheme+'-dark');
+    } else {
+      this.themeSwitched.emit(this.selectedTheme);
+    }
   }
 
 }

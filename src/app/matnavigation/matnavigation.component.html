@@ -1,8 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    mode='side' [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <mat-divider></mat-divider>
@@ -16,21 +14,27 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span class="example-spacer"></span>
+      <!-- <span class="example-spacer"></span> -->
       <mat-slide-toggle (change)="onDarkModeSwitched($event)">
-    Dark theme
-  </mat-slide-toggle>
+        <span style="font-size: small;">Dark theme</span>
+      </mat-slide-toggle>
+      <mat-menu #palleteMenu="matMenu">
+        <mat-radio-group (change)="themeChanged($event)" class="example-radio-group">
+          <mat-radio-button class="example-radio-button" *ngFor="let theme of matThemes" [value]="theme"
+            checked="mat-indigo-theme">
+            {{theme}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-menu>
+      <button  mat-icon-button [matMenuTriggerFor]="palleteMenu">
+        <mat-icon>palette</mat-icon>{{selectedTheme}}
+      </button>
     </mat-toolbar>
     <app-address-form>
-     
+
     </app-address-form>
   </mat-sidenav-content>
 </mat-sidenav-container>

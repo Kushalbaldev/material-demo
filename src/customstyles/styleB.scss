@@ -1,0 +1,36 @@
+$primary: mat-palette($mat-deep-purple);
+$accent: mat-palette($mat-amber, A200, A100, A400);
+$warn: mat-palette($mat-red);
+
+$mat-deep-purple-theme: mat-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+$mat-deep-purple-theme-dark: mat-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+
+.mat-deep-purple-theme-dark{
+    @include angular-material-theme($mat-deep-purple-theme-dark);
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+    
+  } 
+  
+  .mat-deep-purple-theme{
+    @include angular-material-theme($mat-deep-purple-theme);
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+  }
+  

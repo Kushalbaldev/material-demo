@@ -1,0 +1,36 @@
+$primary: mat-palette($mat-pink);
+$accent: mat-palette($mat-blue);
+$warn: mat-palette($mat-red);
+
+$mat-pink-blue-theme: mat-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+$mat-pink-blue-theme-dark: mat-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  )
+));
+
+
+.mat-pink-blue-theme-dark{
+    @include angular-material-theme($mat-pink-blue-theme-dark);
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+    
+  } 
+  
+  .mat-pink-blue-theme{
+    @include angular-material-theme($mat-pink-blue-theme);
+    --primary: #{mat-color($primary)};
+    --accent: #{mat-color($accent)};
+    --warn: #{mat-color($warn)};
+  }
+  
