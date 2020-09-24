@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,11 @@ import { DOCUMENT } from '@angular/common';
 })
 export class AppComponent implements OnInit{
 
-  constructor(@Inject(DOCUMENT) private document:Document,private renderer:Renderer2 ){}
+  constructor(@Inject(DOCUMENT) private document:Document,private renderer:Renderer2 ,private _themeService:ThemeService){}
 
   ngOnInit(): void {
-    this.renderer.setAttribute(this.document.body,'class','mat-indigo-theme');
-  }
-
-  themeSwitch(theme:string){
-    this.renderer.setAttribute(this.document.body,'class',theme);
+    this._themeService.themechangerSubject.subscribe(res=>{
+      this.renderer.setAttribute(this.document.body,'class',res);
+    }); 
   }
 }

@@ -24,7 +24,7 @@
       <mat-menu #palleteMenu="matMenu">
         <mat-card style="display: contents">
           <mat-card-content>
-            <mat-radio-group [(ngModel)]="this.themos" (change)="themeChanged($event)" class="example-radio-group">
+            <mat-radio-group [(ngModel)]="this.themos" (change)="themeChanged()" class="example-radio-group">
               <mat-radio-button class="example-radio-button" *ngFor="let theme of matThemes; let i=index" [value]="theme"
                 checked="mat-indigo-theme">
                 {{theme.name}}

@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider'
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatnavigationComponent,
     DashboardComponent,
     AddressFormComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
