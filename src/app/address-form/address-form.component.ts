@@ -1,3 +1,4 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -85,9 +86,27 @@ export class AddressFormComponent {
     {name: 'Wyoming', abbreviation: 'WY'}
   ];
 
-  constructor(private fb: FormBuilder) {}
+  display='flex';
+  dm='margin';
+  show:boolean=true;
+
+  constructor(private fb: FormBuilder,breakpointObserver: BreakpointObserver) {
+    const isSmallScreen = breakpointObserver.isMatched('(max-width: 599px)');
+    if(isSmallScreen){
+      this.display='block'
+      this.dm='m-0';
+      console.log("yess");
+    }else{
+      this.display='flex';
+      this.dm='mr-20';
+    }
+  }
 
   onSubmit() {
     alert('Thanks!');
+    if(this.addressForm.valid){
+      this.show=false;
+    }
+    
   }
 }

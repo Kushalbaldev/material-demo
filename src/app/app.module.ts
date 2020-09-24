@@ -19,7 +19,7 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider'
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
@@ -48,7 +48,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatRadioModule,
     ReactiveFormsModule,
     MatDividerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FormsModule,
+        ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

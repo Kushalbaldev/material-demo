@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatTheme } from '../models/theme';
 
 @Component({
   selector: 'app-matnavigation',
@@ -16,7 +17,17 @@ export class MatnavigationComponent implements OnInit {
   @Output()
   readonly themeSwitched = new EventEmitter<string>();
 
-  selectedTheme: string = 'mat-indigo-theme';
+  selectedTheme: string;
+
+  isToggled: boolean = false;
+
+  themos: MatTheme
+
+  matThemes: Array<MatTheme> = [
+    new MatTheme('indigo', 'mat-indigo-theme'),
+    new MatTheme('purple', 'mat-deep-purple-theme'),
+    new MatTheme('pink', 'mat-pink-blue-theme'),
+  ]
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -28,22 +39,25 @@ export class MatnavigationComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.themos = this.matThemes[0];
   }
 
-
-  matThemes: string[] = ['mat-indigo-theme', 'mat-deep-purple-theme', 'mat-pink-blue-theme'];
-
-
   themeChanged(event: MatRadioChange) {
-    this.selectedTheme = event.value;
-    this.themeSwitched.emit(this.selectedTheme);
+    this.themos = event.value;
+    if (this.isToggled) {
+      this.themeSwitched.emit(this.themos.theme + '-dark');
+    } else {
+      this.themeSwitched.emit(this.themos.theme);
+    }
+    console.log(event.value)
   }
 
   onDarkModeSwitched(togglechange: MatSlideToggleChange) {
+    this.isToggled = togglechange.checked;
     if (togglechange.checked) {
-      this.themeSwitched.emit(this.selectedTheme+'-dark');
+      this.themeSwitched.emit(this.themos.theme + '-dark');
     } else {
-      this.themeSwitched.emit(this.selectedTheme);
+      this.themeSwitched.emit(this.themos.theme);
     }
   }
 
