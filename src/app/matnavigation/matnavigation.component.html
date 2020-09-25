@@ -1,44 +1,44 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async)? 'over':'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <mat-divider></mat-divider>
-      <a mat-list-item href="#">Link 1</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item href="#">Link 2</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item href="#">Link 3</a>
-      <mat-divider></mat-divider>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async)? 'over':'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <mat-divider></mat-divider>
+            <a mat-list-item href="#">Link 1</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item href="#">Link 2</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item href="#">Link 3</a>
+            <mat-divider></mat-divider>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <!-- <span class="example-spacer"></span> -->
-      <mat-slide-toggle (change)="onDarkModeSwitched($event)">
-        <span style="font-size: small;">Dark theme</span>
-      </mat-slide-toggle>
-      <mat-menu #palleteMenu="matMenu">
-        <mat-card style="display: contents">
-          <mat-card-content>
-            <mat-radio-group [(ngModel)]="this.themos" (change)="themeChanged()" class="example-radio-group">
-              <mat-radio-button class="example-radio-button" *ngFor="let theme of matThemes; let i=index" [value]="theme"
-                checked="mat-indigo-theme">
-                {{theme.name}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </mat-card-content>
-        </mat-card>
-      </mat-menu>
-      <button  mat-icon-button [matMenuTriggerFor]="palleteMenu">
-        <mat-icon>palette</mat-icon>{{themos.name}}
-      </button>
-    </mat-toolbar>
-    <app-address-form>
+            <span class="example-spacer">
+        <mat-slide-toggle style="padding-right: 95px;" (change)="onDarkModeSwitched($event)">
+          <span style="font-size: small;">Dark Mode</span>
+            </mat-slide-toggle>
+            <mat-menu #palleteMenu="matMenu">
+                <mat-card style="display: contents">
+                    <mat-card-content>
+                        <mat-radio-group [(ngModel)]="this.themos" (change)="themeChanged()" class="example-radio-group">
+                            <mat-radio-button class="example-radio-button" *ngFor="let theme of matThemes; let i=index" [value]="theme" checked="mat-indigo-theme">
+                                {{theme.name}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </mat-card-content>
+                </mat-card>
+            </mat-menu>
+            <button style="right: 70px;" mat-icon-button [matMenuTriggerFor]="palleteMenu">
+          <mat-icon>palette</mat-icon>Theme
+        </button>
+            <button style="right: 30px;" (click)="logout()" mat-raised-button color="accent">Logout</button>
+            </span>
+        </mat-toolbar>
+        <app-address-form>
 
-    </app-address-form>
-  </mat-sidenav-content>
+        </app-address-form>
+    </mat-sidenav-content>
 </mat-sidenav-container>

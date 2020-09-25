@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTheme } from '../models/theme';
 import { ThemeService } from '../theme.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-matnavigation',
@@ -28,7 +29,7 @@ export class MatnavigationComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private _themeService: ThemeService) {
+  constructor(private breakpointObserver: BreakpointObserver, private _themeService: ThemeService,private router:Router) {
     this.matThemes = this._themeService.getMatThemes();
   }
 
@@ -51,5 +52,9 @@ export class MatnavigationComponent implements OnInit {
     } else {
       this._themeService.themechangerSubject.next(this.themos.theme);
     }
+  }
+
+  logout(){
+    this.router.navigate([""])
   }
 }

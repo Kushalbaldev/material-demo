@@ -1,31 +1,36 @@
 .sidenav-container {
-  height: 100%;
+    height: 100%;
 }
 
 .sidenav {
-  width: 200px;
-   //background: var(--accent);
+    width: 200px;
+    //background: var(--accent);
 }
 
 .sidenav .mat-toolbar {
-  background: inherit;
-  width: 100%;
+    background: inherit;
+    width: 100%;
 }
 
 .example-radio-group {
-  display: flex;
-  flex-direction: column;
-  margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+    text-align: right;
 }
 
 .mat-radio-button {
-  margin: 5px;
-  font-weight: 300 !important;
-  font-size: unset !important;
+    margin: 5px;
+    font-weight: 300 !important;
+    font-size: unset !important;
 }
 
 .mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
