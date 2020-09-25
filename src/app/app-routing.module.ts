@@ -6,8 +6,14 @@ import { MatnavigationComponent } from './matnavigation/matnavigation.component'
 const routes: Routes = [
   {
     path:"",
+    component:LoginComponent
+  },
+
+  {
+    path:"main-view",
     component:MatnavigationComponent
   }
+
 
 ];
 

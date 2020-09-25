@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div fxFill fxLayout="column" fxLayoutAlign="space-around center" class="size-full-and-align-center">
+    <div [ngClass]="(isHandset$|async)? 'w-90':'mw-30'">
+        <mat-card class="p-0 m-0">
+            <mat-card-title class="p-0">
+                <mat-toolbar color="primary">
+                    <span>Login</span>
+                </mat-toolbar>
+            </mat-card-title>
+            <mat-card-content class="p-20 text-align-center">
+                <form>
+                    <mat-form-field class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Enter your username">
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <mat-label>Password</mat-label>
+                        <input matInput placeholder="Enter your password">
+                    </mat-form-field>
+                    <button (click)="login()" mat-raised-button color="accent">Login</button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
