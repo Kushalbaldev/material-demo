@@ -7,16 +7,19 @@
                 </mat-toolbar>
             </mat-card-title>
             <mat-card-content class="p-20 text-align-center">
-                <form>
+                <form *ngIf="userRegistrationFormGroup" [formGroup]="userRegistrationFormGroup" (ngSubmit)="login()">
                     <mat-form-field class="w-100">
                         <mat-label>Email</mat-label>
-                        <input matInput placeholder="Enter your username">
+                        <input formControlName="email" matInput placeholder="Enter your username">
+                        <mat-hint align="end">please enter aa@b.c to login</mat-hint>
+                        <mat-error *ngFor="let message of userRegistrationFormGroup.controls.email['errorMessages']">{{message}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-100">
                         <mat-label>Password</mat-label>
-                        <input matInput placeholder="Enter your password">
+                        <input formControlName="password" type="password" matInput placeholder="Enter your password">
+                        <mat-error *ngFor="let message of userRegistrationFormGroup.controls.password['errorMessages']">{{message}}</mat-error>
                     </mat-form-field>
-                    <button (click)="login()" mat-raised-button color="accent">Login</button>
+                    <button mat-raised-button color="accent">Login</button>
                 </form>
             </mat-card-content>
         </mat-card>

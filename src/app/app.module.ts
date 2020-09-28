@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider'
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { LoginComponent } from './login/login.component';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { LoginComponent } from './login/login.component';
     MatDividerModule,
     MatSlideToggleModule,
     FormsModule,
-        ReactiveFormsModule,
+    ReactiveFormsModule,
+    RxReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
