@@ -11,12 +11,13 @@
                     <mat-form-field class="w-100">
                         <mat-label>Email</mat-label>
                         <input formControlName="email" matInput placeholder="Enter your username">
-                        <mat-hint align="end">please enter aa@b.c to login</mat-hint>
+                        <mat-hint align="end">username:admin@abc.com</mat-hint>
                         <mat-error *ngFor="let message of userRegistrationFormGroup.controls.email['errorMessages']">{{message}}</mat-error>
                     </mat-form-field>
                     <mat-form-field class="w-100">
                         <mat-label>Password</mat-label>
                         <input formControlName="password" type="password" matInput placeholder="Enter your password">
+                        <mat-hint align="end">password:password</mat-hint>
                         <mat-error *ngFor="let message of userRegistrationFormGroup.controls.password['errorMessages']">{{message}}</mat-error>
                     </mat-form-field>
                     <button mat-raised-button color="accent">Login</button>
