@@ -24,6 +24,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "@rxweb/reactive-form-validators": "^2.1.2",
     "angular-cli-ghpages": "^0.6.2",
+    "ngx-spellchecker": "^1.0.5",
     "ngx-translate-multi-http-loader": "^3.0.0",
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",

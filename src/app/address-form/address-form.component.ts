@@ -1,15 +1,18 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable, timer  } from 'rxjs';
+import { SpellCheckerService } from 'ngx-spellchecker';
+import { Observable, timer } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { SpellchekerService } from '../spellcheker.service';
 
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
   styleUrls: ['./address-form.component.scss']
 })
-export class AddressFormComponent implements OnInit {
+export class AddressFormComponent implements OnInit, AfterViewInit {
 
   hasUnitNumber = false;
   display = 'flex';
@@ -19,8 +22,11 @@ export class AddressFormComponent implements OnInit {
   likesColor: string = 'primary';
   likeEmojiPath = 'assets/image/login.png';
   public daglo: boolean = false;
-  @ViewChild('imgdiv') imagediv:ElementRef;
-  
+  @ViewChild('imgdiv') imgdiv: ElementRef;
+  spellcheckhint: any;
+
+  fileURL = "https://raw.githubusercontent.com/JacobSamro/ngx-spellchecker/master/dict/normalized_en-US.dic";
+
   addressForm = this.fb.group({
     company: null,
     firstName: [null, Validators.required],
@@ -102,13 +108,35 @@ export class AddressFormComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
+  
 
 
-  constructor(private fb: FormBuilder, private breakpointObserver: BreakpointObserver) {
+  constructor(private fb: FormBuilder, private breakpointObserver: BreakpointObserver, private spellcheck: SpellchekerService,private httpClient:HttpClient,private spellCheckerService: SpellCheckerService) {}
+  ngAfterViewInit(): void {
+    this.imgdiv.nativeElement.style.display = 'none'
   }
 
   ngOnInit(): void {
-    this.imagediv.nativeElement.style.display='none'
+    this.spellcheck.suggestionValue.subscribe(res=>{
+      this.spellcheckhint= res;
+    });
+
+  }
+
+  checkSpell(){
+    const val = this.addressForm.value;
+    this.checkPlease(val.company);
+  }
+
+  public checkPlease(wordTocheck:string):any{
+    this.httpClient.get(this.fileURL, { responseType: 'text' }).subscribe((res: any) => {
+      let dictionary = this.spellCheckerService.getDictionary(res)
+      if(!dictionary.spellCheck(wordTocheck)){
+        console.log(dictionary.getSuggestions(wordTocheck,null,null));
+        this.spellcheckhint= dictionary.getSuggestions(wordTocheck,null,null);
+        alert(this.spellcheckhint);
+      }
+    });
   }
 
   onSubmit() {
@@ -126,9 +154,9 @@ export class AddressFormComponent implements OnInit {
 
   public showImages(like: boolean) {
     this.likeEmojiPath = like ? 'assets/image/login.png' : 'assets/image/cry.gif';
-    this.imagediv.nativeElement.style.display='block';
-    timer(900).subscribe(res=>{
-      this.imagediv.nativeElement.style.display='none'
+    this.imgdiv.nativeElement.style.display = 'block';
+    timer(900).subscribe(res => {
+      this.imgdiv.nativeElement.style.display = 'none'
     });
   }
 }

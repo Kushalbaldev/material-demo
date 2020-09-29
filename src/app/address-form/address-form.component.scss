@@ -1,9 +1,13 @@
 .shipping-card {
-  min-width: 120px;
-  margin: 20px auto;
+    min-width: 120px;
+    margin: 20px auto;
 }
 
 .mat-radio-button {
-  display: block;
-  margin: 5px 0;
+    display: block;
+    margin: 5px 0;
+}
+
+.show {
+    display: none;
 }

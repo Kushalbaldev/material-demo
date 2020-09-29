@@ -13,6 +13,7 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { LocalechangeComponent } from './localechange/localechange.component';
 import { LangTranslateModule } from './translate/lang-translate.module'
 import { MaterialModule } from './material/material.module';
+import { SpellCheckerModule, SpellCheckerService } from 'ngx-spellchecker';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { MaterialModule } from './material/material.module';
     DashboardComponent,
     AddressFormComponent,
     LoginComponent,
-    LocalechangeComponent,
+    LocalechangeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +32,10 @@ import { MaterialModule } from './material/material.module';
     FormsModule,
     ReactiveFormsModule,
     RxReactiveFormsModule,
-    LangTranslateModule
+    LangTranslateModule,
+    SpellCheckerModule
   ],
-  providers: [],
+  providers: [SpellCheckerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
