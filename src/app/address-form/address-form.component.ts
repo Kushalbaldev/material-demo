@@ -125,7 +125,14 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
 
   checkSpell(){
     const val = this.addressForm.value;
-    this.checkPlease(val.company);
+
+    
+    if(typeof val.company!='undefined' && val.company){
+      this.checkPlease(val.company);
+    }else{
+      this.spellcheckhint="";
+    }
+    
   }
 
   public checkPlease(wordTocheck:string):any{
@@ -134,7 +141,6 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
       if(!dictionary.spellCheck(wordTocheck)){
         console.log(dictionary.getSuggestions(wordTocheck,null,null));
         this.spellcheckhint= dictionary.getSuggestions(wordTocheck,null,null);
-        alert(this.spellcheckhint);
       }
     });
   }

@@ -8,7 +8,7 @@
                 <div class="row" [ngClass]="(isHandset$ | async)? 'block':'flex'">
                     <div class="col" [ngClass]="(isHandset$ | async)? 'm-0':'mr-20'">
                         <mat-form-field class="w-100">
-                            <input (change)="checkSpell()" matInput placeholder="Company" formControlName="company">
+                            <input (ngModelChange)="checkSpell()" matInput placeholder="Company" formControlName="company">
                             <mat-hint>{{spellcheckhint}}</mat-hint>
                         </mat-form-field>
                     </div>
