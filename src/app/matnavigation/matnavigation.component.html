@@ -3,22 +3,22 @@
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
             <mat-divider></mat-divider>
-            <a mat-list-item href="#">Link 1</a>
+            <a mat-list-item>Link 1</a>
             <mat-divider></mat-divider>
-            <a mat-list-item href="#">Link 2</a>
+            <a mat-list-item>Link 2</a>
             <mat-divider></mat-divider>
-            <a mat-list-item href="#">Link 3</a>
+            <a mat-list-item>Link 3</a>
             <mat-divider></mat-divider>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
             <span class="example-spacer">
-        <mat-slide-toggle style="padding-right: 95px;" (change)="onDarkModeSwitched($event)">
-          <span style="font-size: small;">Dark Mode</span>
+                <mat-slide-toggle style="padding-right: 95px;" (change)="onDarkModeSwitched($event)">
+                    <span style="font-size: small;">Dark Mode</span>
             </mat-slide-toggle>
             <mat-menu #palleteMenu="matMenu">
                 <mat-card style="display: contents">
@@ -32,13 +32,14 @@
                 </mat-card>
             </mat-menu>
             <button style="right: 70px;" mat-icon-button [matMenuTriggerFor]="palleteMenu">
-          <mat-icon>palette</mat-icon>Theme
-        </button>
+                    <mat-icon>palette</mat-icon>Theme
+                </button>
             <button style="right: 30px;" (click)="logout()" mat-raised-button color="accent">Logout</button>
             </span>
         </mat-toolbar>
+        <!-- add the body here -->
         <app-address-form>
-
         </app-address-form>
+        <!-- add the body here -->
     </mat-sidenav-content>
 </mat-sidenav-container>
