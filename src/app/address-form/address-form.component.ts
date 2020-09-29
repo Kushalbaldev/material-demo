@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, timer  } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
@@ -9,7 +9,18 @@ import { map, shareReplay } from 'rxjs/operators';
   templateUrl: './address-form.component.html',
   styleUrls: ['./address-form.component.scss']
 })
-export class AddressFormComponent {
+export class AddressFormComponent implements OnInit {
+
+  hasUnitNumber = false;
+  display = 'flex';
+  dm = 'margin';
+  show: boolean = true;
+  like: boolean = false;
+  likesColor: string = 'primary';
+  likeEmojiPath = 'assets/image/login.png';
+  public daglo: boolean = false;
+  @ViewChild('imgdiv') imagediv:ElementRef;
+  
   addressForm = this.fb.group({
     company: null,
     firstName: [null, Validators.required],
@@ -23,8 +34,6 @@ export class AddressFormComponent {
     ],
     shipping: ['free', Validators.required]
   });
-
-  hasUnitNumber = false;
 
   states = [
     { name: 'Alabama', abbreviation: 'AL' },
@@ -88,10 +97,6 @@ export class AddressFormComponent {
     { name: 'Wyoming', abbreviation: 'WY' }
   ];
 
-  display = 'flex';
-  dm = 'margin';
-  show: boolean = true;
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -100,14 +105,30 @@ export class AddressFormComponent {
 
 
   constructor(private fb: FormBuilder, private breakpointObserver: BreakpointObserver) {
+  }
 
+  ngOnInit(): void {
+    this.imagediv.nativeElement.style.display='none'
   }
 
   onSubmit() {
-    alert('Thanks!');
     if (this.addressForm.valid) {
+      alert('Like this app to see the amazing thing');
       this.show = false;
     }
+  }
 
+  public toggleLike() {
+    this.like = !this.like;
+    this.showImages(this.like);
+    this.likesColor = this.like ? 'warn' : 'primary';
+  }
+
+  public showImages(like: boolean) {
+    this.likeEmojiPath = like ? 'assets/image/login.png' : 'assets/image/cry.gif';
+    this.imagediv.nativeElement.style.display='block';
+    timer(900).subscribe(res=>{
+      this.imagediv.nativeElement.style.display='none'
+    });
   }
 }
