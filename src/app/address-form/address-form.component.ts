@@ -1,31 +1,43 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { SpellCheckerService } from 'ngx-spellchecker';
-import { Observable, timer } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  pluck,
+  shareReplay,
+  switchMap,
+} from 'rxjs/operators';
 import { SpellchekerService } from '../spellcheker.service';
 
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
-  styleUrls: ['./address-form.component.scss']
+  styleUrls: ['./address-form.component.scss'],
 })
-export class AddressFormComponent implements OnInit, AfterViewInit {
-
+export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
   hasUnitNumber = false;
   display = 'flex';
   dm = 'margin';
-  show: boolean = true;
-  like: boolean = false;
-  likesColor: string = 'primary';
+  show = true;
+  like = false;
+  likesColor = 'primary';
   likeEmojiPath = 'assets/image/login.png';
-  public daglo: boolean = false;
   @ViewChild('imgdiv') imgdiv: ElementRef;
-  spellcheckhint: any;
-
-  fileURL = "https://raw.githubusercontent.com/JacobSamro/ngx-spellchecker/master/dict/normalized_en-US.dic";
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  private spellcheckSubscription: Subscription;
+  public suggestedWord = '';
 
   addressForm = this.fb.group({
     company: null,
@@ -35,10 +47,15 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
     address2: null,
     city: [null, Validators.required],
     state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
+    postalCode: [
+      null,
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(5),
+      ]),
     ],
-    shipping: ['free', Validators.required]
+    shipping: ['free', Validators.required],
   });
 
   states = [
@@ -50,119 +67,84 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
     { name: 'California', abbreviation: 'CA' },
     { name: 'Colorado', abbreviation: 'CO' },
     { name: 'Connecticut', abbreviation: 'CT' },
-    { name: 'Delaware', abbreviation: 'DE' },
-    { name: 'District Of Columbia', abbreviation: 'DC' },
-    { name: 'Federated States Of Micronesia', abbreviation: 'FM' },
-    { name: 'Florida', abbreviation: 'FL' },
-    { name: 'Georgia', abbreviation: 'GA' },
-    { name: 'Guam', abbreviation: 'GU' },
-    { name: 'Hawaii', abbreviation: 'HI' },
-    { name: 'Idaho', abbreviation: 'ID' },
-    { name: 'Illinois', abbreviation: 'IL' },
-    { name: 'Indiana', abbreviation: 'IN' },
-    { name: 'Iowa', abbreviation: 'IA' },
-    { name: 'Kansas', abbreviation: 'KS' },
-    { name: 'Kentucky', abbreviation: 'KY' },
-    { name: 'Louisiana', abbreviation: 'LA' },
-    { name: 'Maine', abbreviation: 'ME' },
-    { name: 'Marshall Islands', abbreviation: 'MH' },
-    { name: 'Maryland', abbreviation: 'MD' },
-    { name: 'Massachusetts', abbreviation: 'MA' },
-    { name: 'Michigan', abbreviation: 'MI' },
-    { name: 'Minnesota', abbreviation: 'MN' },
-    { name: 'Mississippi', abbreviation: 'MS' },
-    { name: 'Missouri', abbreviation: 'MO' },
-    { name: 'Montana', abbreviation: 'MT' },
-    { name: 'Nebraska', abbreviation: 'NE' },
-    { name: 'Nevada', abbreviation: 'NV' },
-    { name: 'New Hampshire', abbreviation: 'NH' },
-    { name: 'New Jersey', abbreviation: 'NJ' },
-    { name: 'New Mexico', abbreviation: 'NM' },
-    { name: 'New York', abbreviation: 'NY' },
-    { name: 'North Carolina', abbreviation: 'NC' },
-    { name: 'North Dakota', abbreviation: 'ND' },
-    { name: 'Northern Mariana Islands', abbreviation: 'MP' },
-    { name: 'Ohio', abbreviation: 'OH' },
-    { name: 'Oklahoma', abbreviation: 'OK' },
-    { name: 'Oregon', abbreviation: 'OR' },
-    { name: 'Palau', abbreviation: 'PW' },
-    { name: 'Pennsylvania', abbreviation: 'PA' },
-    { name: 'Puerto Rico', abbreviation: 'PR' },
-    { name: 'Rhode Island', abbreviation: 'RI' },
-    { name: 'South Carolina', abbreviation: 'SC' },
-    { name: 'South Dakota', abbreviation: 'SD' },
-    { name: 'Tennessee', abbreviation: 'TN' },
-    { name: 'Texas', abbreviation: 'TX' },
-    { name: 'Utah', abbreviation: 'UT' },
-    { name: 'Vermont', abbreviation: 'VT' },
-    { name: 'Virgin Islands', abbreviation: 'VI' },
-    { name: 'Virginia', abbreviation: 'VA' },
-    { name: 'Washington', abbreviation: 'WA' },
-    { name: 'West Virginia', abbreviation: 'WV' },
-    { name: 'Wisconsin', abbreviation: 'WI' },
-    { name: 'Wyoming', abbreviation: 'WY' }
   ];
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     );
-  
+  spellcheckhint: BehaviorSubject<any>;
 
+  constructor(
+    private fb: FormBuilder,
+    private breakpointObserver: BreakpointObserver,
+    private mySpellcheck: SpellchekerService
+  ) {
+    this.spellcheckhint = this.mySpellcheck.suggestionValue;
+  }
 
-  constructor(private fb: FormBuilder, private breakpointObserver: BreakpointObserver, private spellcheck: SpellchekerService,private httpClient:HttpClient,private spellCheckerService: SpellCheckerService) {}
+  ngOnInit(): void {}
+
   ngAfterViewInit(): void {
-    this.imgdiv.nativeElement.style.display = 'none'
-  }
+    this.imgdiv.nativeElement.style.display = 'none';
+    let value = '';
+    const formValue = this.addressForm.valueChanges;
 
-  ngOnInit(): void {
-    this.spellcheck.suggestionValue.subscribe(res=>{
-      this.spellcheckhint= res;
-    });
+    this.spellcheckSubscription = formValue
+      .pipe(
+        pluck('company'),
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((data) => {
+          value = data;
+          this.mySpellcheck.checkSpell(data);
+          return this.mySpellcheck.suggestionValue;
+        })
+      )
+      .subscribe(() => {});
 
-  }
-
-  checkSpell(){
-    const val = this.addressForm.value;
-
-    
-    if(typeof val.company!='undefined' && val.company){
-      this.checkPlease(val.company);
-    }else{
-      this.spellcheckhint="";
-    }
-    
-  }
-
-  public checkPlease(wordTocheck:string):any{
-    this.httpClient.get(this.fileURL, { responseType: 'text' }).subscribe((res: any) => {
-      let dictionary = this.spellCheckerService.getDictionary(res)
-      if(!dictionary.spellCheck(wordTocheck)){
-        console.log(dictionary.getSuggestions(wordTocheck,null,null));
-        this.spellcheckhint= dictionary.getSuggestions(wordTocheck,null,null);
+    this.mySpellcheck.suggestionValue.subscribe((res) => {
+      console.log(res);
+      if (res !== null && typeof res !== 'undefined' && res.length > 0) {
+        this.trigger.openMenu();
+      } else {
+        this.trigger.closeMenu();
       }
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.addressForm.valid) {
       alert('Like this app to see the amazing thing');
       this.show = false;
     }
   }
 
-  public toggleLike() {
+  public selectSuggestions(suggestion: string): any {
+    this.suggestedWord = suggestion;
+    this.mySpellcheck.suggestionValue.next(null);
+  }
+
+  public toggleLike(): void {
     this.like = !this.like;
     this.showImages(this.like);
     this.likesColor = this.like ? 'warn' : 'primary';
   }
 
-  public showImages(like: boolean) {
-    this.likeEmojiPath = like ? 'assets/image/login.png' : 'assets/image/cry.gif';
+  public showImages(like: boolean): void {
+    this.likeEmojiPath = like
+      ? 'assets/image/login.png'
+      : 'assets/image/cry.gif';
     this.imgdiv.nativeElement.style.display = 'block';
-    timer(900).subscribe(res => {
-      this.imgdiv.nativeElement.style.display = 'none'
+    timer(900).subscribe((res) => {
+      this.imgdiv.nativeElement.style.display = 'none';
     });
+  }
+
+  ngOnDestroy(): void {
+    this.spellcheckSubscription.unsubscribe();
+    this.mySpellcheck.suggestionValue.unsubscribe();
   }
 }
