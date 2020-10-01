@@ -6,14 +6,14 @@
                 "routerlink": "/main-view/dashboard"
             },
             {
-                "routetext": "App-Funktionen",
-                "icon": "note",
-                "routerlink": "/main-view/app-feature"
-            },
-            {
                 "routetext": "Benutzer",
                 "icon": "supervisor_account",
                 "routerlink": "/main-view/users"
+            },
+            {
+                "routetext": "App-Funktionen",
+                "icon": "note",
+                "routerlink": "/main-view/app-feature"
             }
         ]
     }
