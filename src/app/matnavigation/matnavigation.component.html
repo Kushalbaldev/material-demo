@@ -2,7 +2,7 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async)? 'over':'side'" [opened]="(isHandset$ | async) === false">
         <mat-toolbar>
             <div class="p-30">
-                <img width="60" height="50" alt="Angular Logo" src="assets/image/login.png" />
+                <img width="60" height="40" alt="Angular Logo" src="assets/image/login.png" />
             </div>
         </mat-toolbar>
         <ng-container *ngFor="let routes of 'dashboard.routes' | translate">
