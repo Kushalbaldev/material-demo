@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { SpellCheckerService } from 'ngx-spellchecker';
 import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
 import {
   debounceTime,
@@ -38,6 +37,8 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   private spellcheckSubscription: Subscription;
   public suggestedWord = '';
+
+  private spellcheckSubService: Subscription;
 
   addressForm = this.fb.group({
     company: null,
@@ -85,7 +86,7 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.spellcheckhint = this.mySpellcheck.suggestionValue;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.imgdiv.nativeElement.style.display = 'none';
@@ -103,9 +104,9 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
           return this.mySpellcheck.suggestionValue;
         })
       )
-      .subscribe(() => {});
+      .subscribe(() => { });
 
-    this.mySpellcheck.suggestionValue.subscribe((res) => {
+    this.spellcheckSubService = this.mySpellcheck.suggestionValue.subscribe((res) => {
       console.log(res);
       if (res !== null && typeof res !== 'undefined' && res.length > 0) {
         this.trigger.openMenu();
@@ -145,6 +146,6 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.spellcheckSubscription.unsubscribe();
-    this.mySpellcheck.suggestionValue.unsubscribe();
+    this.spellcheckSubService.unsubscribe();
   }
 }

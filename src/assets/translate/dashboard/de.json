@@ -2,15 +2,18 @@
     "dashboard": {
         "routes": [{
                 "routetext": "Instrumententafel",
-                "icon": "dashboard"
+                "icon": "dashboard",
+                "routerlink": "/main-view/dashboard"
             },
             {
                 "routetext": "App-Funktionen",
-                "icon": "note"
+                "icon": "note",
+                "routerlink": "/main-view/app-feature"
             },
             {
                 "routetext": "Benutzer",
-                "icon": "supervisor_account"
+                "icon": "supervisor_account",
+                "routerlink": "/main-view/users"
             }
         ]
     }

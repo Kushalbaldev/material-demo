@@ -16,6 +16,7 @@ import { MaterialModule } from './material/material.module';
 import { SpellCheckerModule, SpellCheckerService } from 'ngx-spellchecker';
 import { AppFeatureComponent } from './app-feature/app-feature.component';
 import { ThemechangerComponent } from './themechanger/themechanger.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ThemechangerComponent } from './themechanger/themechanger.component';
     LoginComponent,
     LocalechangeComponent,
     AppFeatureComponent,
-    ThemechangerComponent
+    ThemechangerComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
