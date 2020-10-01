@@ -1,5 +1,8 @@
 {
     "dashboard": {
+        "happyCoding": "Viel Spaß beim Codieren...!",
+        "softwareEngineer": "Softwareentwickler",
+        "cardText": "Hallo, ich bin Kushal Baldev Softwareentwickler bei Spec-India, möchte mehr über mich erfahren und kann mir eine E-Mail an senden",
         "routes": [{
                 "routetext": "Instrumententafel",
                 "icon": "dashboard",
