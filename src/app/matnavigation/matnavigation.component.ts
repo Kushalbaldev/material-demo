@@ -15,13 +15,6 @@ import { Router } from '@angular/router';
 })
 export class MatnavigationComponent implements OnInit {
 
-  selectedTheme: string;
-
-  isToggled: boolean = false;
-
-  themos: MatTheme
-
-  matThemes: Array<MatTheme>;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -29,32 +22,14 @@ export class MatnavigationComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private _themeService: ThemeService,private router:Router) {
-    this.matThemes = this._themeService.getMatThemes();
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+
   }
 
   ngOnInit(): void {
-    this.themos = this.matThemes[0];
   }
 
-  themeChanged() {
-    this.changeTheme();
-  }
-
-  onDarkModeSwitched(togglechange: MatSlideToggleChange) {
-    this.isToggled = togglechange.checked;
-    this.changeTheme();
-  }
-
-  private changeTheme() {
-    if (this.isToggled) {
-      this._themeService.themechangerSubject.next(this.themos.theme + '-dark');
-    } else {
-      this._themeService.themechangerSubject.next(this.themos.theme);
-    }
-  }
-
-  logout(){
-    this.router.navigate([""])
+  logout(): any {
+    this.router.navigate(['']);
   }
 }

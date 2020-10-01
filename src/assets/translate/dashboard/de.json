@@ -1,0 +1,17 @@
+{
+    "dashboard": {
+        "routes": [{
+                "routetext": "Instrumententafel",
+                "icon": "dashboard"
+            },
+            {
+                "routetext": "App-Funktionen",
+                "icon": "note"
+            },
+            {
+                "routetext": "Benutzer",
+                "icon": "supervisor_account"
+            }
+        ]
+    }
+}

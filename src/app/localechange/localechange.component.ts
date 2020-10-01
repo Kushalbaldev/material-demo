@@ -11,7 +11,7 @@ export class LocalechangeComponent implements OnInit {
   switchLang: string;
   browserLang: any;
 
-  constructor(public translate: TranslateService, private localeChangeService: LocalechangeService) { 
+  constructor(public translate: TranslateService, private localeChangeService: LocalechangeService) {
     this.localeChangeService.selectedLang.subscribe(res => {
       this.switchLang = res;
     });
@@ -25,15 +25,15 @@ export class LocalechangeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
 
-  languageChanged() {
+  languageChanged(): any{
     this.translate.use(this.browserLang.match(/de|en/) ? this.browserLang : 'en')
   }
 
-  selectedLanguage(lang: string) {
+  selectedLanguage(lang: string): any {
     this.localeChangeService.selectedLang.next(lang);
     this.translate.use(lang);
   }

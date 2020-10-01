@@ -7,19 +7,19 @@ import { MatTheme } from './models/theme';
 })
 export class ThemeService {
 
-  private theme:string='mat-indigo-theme'
+  private theme = 'mat-indigo-theme';
 
   private matThemes: Array<MatTheme> = [
     new MatTheme('indigo', 'mat-indigo-theme'),
     new MatTheme('purple', 'mat-deep-purple-theme'),
     new MatTheme('pink', 'mat-pink-blue-theme'),
-  ]
+  ];
 
-  public themechangerSubject= new BehaviorSubject(this.theme);
+  public themechangerSubject = new BehaviorSubject(this.theme);
 
   constructor() { }
 
-  public getMatThemes(){
+  public getMatThemes(): any {
     return this.matThemes;
   }
 }

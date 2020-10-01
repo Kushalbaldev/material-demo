@@ -14,6 +14,8 @@ import { LocalechangeComponent } from './localechange/localechange.component';
 import { LangTranslateModule } from './translate/lang-translate.module'
 import { MaterialModule } from './material/material.module';
 import { SpellCheckerModule, SpellCheckerService } from 'ngx-spellchecker';
+import { AppFeatureComponent } from './app-feature/app-feature.component';
+import { ThemechangerComponent } from './themechanger/themechanger.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { SpellCheckerModule, SpellCheckerService } from 'ngx-spellchecker';
     DashboardComponent,
     AddressFormComponent,
     LoginComponent,
-    LocalechangeComponent
+    LocalechangeComponent,
+    AppFeatureComponent,
+    ThemechangerComponent
   ],
   imports: [
     BrowserModule,

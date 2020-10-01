@@ -1,0 +1,15 @@
+<mat-card style="display: contents;">
+    <mat-card-content>
+        <mat-slide-toggle (change)="onDarkModeSwitched($event)">
+            <span style="font-size: small;">Dark Mode</span>
+        </mat-slide-toggle>
+    </mat-card-content>
+
+    <mat-card-content>
+        <mat-radio-group [(ngModel)]="this.themos" (change)="themeChanged()" class="example-radio-group">
+            <mat-radio-button class="example-radio-button" *ngFor="let theme of matThemes; let i=index" [value]="theme" checked="mat-indigo-theme">
+                {{theme.name}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </mat-card-content>
+</mat-card>

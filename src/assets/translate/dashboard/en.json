@@ -1,0 +1,17 @@
+{
+    "dashboard": {
+        "routes": [{
+                "routetext": "Dashboard",
+                "icon": "dashboard"
+            },
+            {
+                "routetext": "App-Feautures",
+                "icon": "note"
+            },
+            {
+                "routetext": "Users",
+                "icon": "supervisor_account"
+            }
+        ]
+    }
+}
