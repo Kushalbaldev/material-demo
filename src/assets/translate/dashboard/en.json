@@ -1,5 +1,8 @@
 {
     "dashboard": {
+        "happyCoding": "Happy Coding...!",
+        "softwareEngineer": "Software Engineer",
+        "cardText": "Hi,I am Kushal Baldev Software Engineer at Spec-India,want to know more about me can email me at",
         "routes": [{
                 "routetext": "Dashboard",
                 "icon": "dashboard",
