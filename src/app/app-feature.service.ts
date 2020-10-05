@@ -8,7 +8,7 @@ import { AppFeature } from './models/app-feature';
 })
 export class AppFeatureService {
 
-  url = '/assets/data/appFeature.json';
+  url = 'assets/data/appFeature.json';
 
   constructor(private http: HttpClient) {
 
