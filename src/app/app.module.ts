@@ -11,12 +11,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { LocalechangeComponent } from './localechange/localechange.component';
-import { LangTranslateModule } from './translate/lang-translate.module'
+import { LangTranslateModule } from './translate/lang-translate.module';
 import { MaterialModule } from './material/material.module';
 import { SpellCheckerModule, SpellCheckerService } from 'ngx-spellchecker';
 import { AppFeatureComponent } from './app-feature/app-feature.component';
 import { ThemechangerComponent } from './themechanger/themechanger.component';
 import { UsersComponent } from './users/users.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UsersComponent } from './users/users.component';
     ReactiveFormsModule,
     RxReactiveFormsModule,
     LangTranslateModule,
-    SpellCheckerModule
+    SpellCheckerModule,
+    FlexLayoutModule
   ],
   providers: [SpellCheckerService],
   bootstrap: [AppComponent]

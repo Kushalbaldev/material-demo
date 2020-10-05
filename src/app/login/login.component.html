@@ -1,33 +1,35 @@
-<div fxFill class="size-full-and-align-center flex-drection-col">
-    <div>
-        <img width="100" height="100" alt="Angular Logo" src="assets/image/login.png" />
-    </div>
-    <div [ngClass]="(isHandset$|async)? 'w-90':'mw-30'">
-        <mat-card class="p-0 m-0">
-            <mat-card-title class="p-0">
-                <mat-toolbar color="primary">
-                    <span>Login</span>
-                </mat-toolbar>
-            </mat-card-title>
-            <mat-card-content class="p-20 text-align-center">
-                <form *ngIf="userRegistrationFormGroup" [formGroup]="userRegistrationFormGroup" (ngSubmit)="login()">
-                    <mat-form-field class="w-100">
-                        <mat-label>Email</mat-label>
-                        <input formControlName="email" matInput placeholder="Enter your username">
-                        <mat-hint align="end">username:admin@abc.com</mat-hint>
-                        <mat-error *ngFor="let message of userRegistrationFormGroup.controls.email['errorMessages']">
-                            {{message}}</mat-error>
-                    </mat-form-field>
-                    <mat-form-field class="w-100">
-                        <mat-label>Password</mat-label>
-                        <input formControlName="password" type="password" matInput placeholder="Enter your password">
-                        <mat-hint align="end">password:password</mat-hint>
-                        <mat-error *ngFor="let message of userRegistrationFormGroup.controls.password['errorMessages']">
-                            {{message}}</mat-error>
-                    </mat-form-field>
-                    <button mat-raised-button color="accent">Login</button>
-                </form>
-            </mat-card-content>
-        </mat-card>
+<div fxFill fxLayout="column">
+    <div fxLayout="column" fxFill fxLayoutAlign="center center">
+        <div>
+            <img width="100" height="100" alt="Angular Logo" src="assets/image/login.png" />
+        </div>
+        <div [ngClass]="(isHandset$|async)? 'w-90':'mw-30'">
+            <mat-card class="p-0 m-0">
+                <mat-card-title class="p-0">
+                    <mat-toolbar color="primary">
+                        <span>Login</span>
+                    </mat-toolbar>
+                </mat-card-title>
+                <mat-card-content class="p-20 text-align-center">
+                    <form *ngIf="userRegistrationFormGroup" [formGroup]="userRegistrationFormGroup" (ngSubmit)="login()">
+                        <mat-form-field class="w-100">
+                            <mat-label>Email</mat-label>
+                            <input formControlName="email" matInput placeholder="Enter your username">
+                            <mat-hint align="end">username:admin@abc.com</mat-hint>
+                            <mat-error *ngFor="let message of userRegistrationFormGroup.controls.email['errorMessages']">
+                                {{message}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <mat-label>Password</mat-label>
+                            <input formControlName="password" type="password" matInput placeholder="Enter your password">
+                            <mat-hint align="end">password:password</mat-hint>
+                            <mat-error *ngFor="let message of userRegistrationFormGroup.controls.password['errorMessages']">
+                                {{message}}</mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button color="accent">Login</button>
+                    </form>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
 </div>

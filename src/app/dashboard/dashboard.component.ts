@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { dataUri } from '@rxweb/reactive-form-validators';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,5 +30,13 @@ export class DashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  public removeCard(card: any): any {
+    this.cards = this.cards.pipe(map(data => {
+      return data.filter(data => data.title !== card.title);
+    }));
+    console.log(card);
+
+  }
+
+  constructor(private breakpointObserver: BreakpointObserver) { }
 }
