@@ -4,6 +4,7 @@ import { AppFeatureComponent } from './app-feature/app-feature.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { MatnavigationComponent } from './matnavigation/matnavigation.component';
+import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
@@ -39,6 +40,11 @@ const routes: Routes = [
         path: 'users',
         component: UsersComponent
       },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

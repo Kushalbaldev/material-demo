@@ -17,6 +17,11 @@
                 "routetext": "App-Funktionen",
                 "icon": "note",
                 "routerlink": "/main-view/app-feature"
+            },
+            {
+                "routetext": "Profile",
+                "icon": "note",
+                "routerlink": "/main-view/profile"
             }
         ]
     }
