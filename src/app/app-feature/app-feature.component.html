@@ -1,7 +1,6 @@
 <div fxLayout="row">
-    <div fxFill fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-
-        <mat-card class="mw-40" *ngFor="let features of OAppFeature | async">
+    <div fxFill style="word-break: break-word;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <mat-card class="mw-50" *ngFor="let features of OAppFeature | async">
             <mat-card-title>{{features.feature}}</mat-card-title>
             <mat-card-subtitle>{{features.description}}
             </mat-card-subtitle>
