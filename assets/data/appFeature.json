@@ -1,0 +1,25 @@
+[{
+        "feature": "Angular Material",
+        "description": "The App uses Angular material one of the finest component library devloped by the Angular team specially built for angular you can find library at https://material.angular.io/ "
+    },
+    {
+        "feature": "Responsive",
+        "description": "The App is responsive in all the Devices and laptops as it uses Flex Layout for Angular a utility that can be used for making the responsive apps in angular you can find docs here https://www.angularjswiki.com/flexlayout"
+    },
+    {
+        "feature": "Supports Multiple Theming and Dark Mode",
+        "description": "You can find the Pallete Icon click on and can find different options there we can set n number of themes and can have dark mode option available for each one I have tried the most optimized way but one can try other way and can contiribute to it"
+    },
+    {
+        "feature": "Use of Rxjs",
+        "description": "Have used Rxjs Operators for faster execution and optimization like Behaviour Subjects as a Broadcaster as well as using pipes and map operator of Rxjs you can find documentation at https://rxjs-dev.firebaseapp.com/guide/overview"
+    },
+    {
+        "feature": "Use of MultiLangTranslate(Supports Multiple Languages)",
+        "description": "Have used ngx translate with multiple http loader i.e. you can define multiple json files for each module you can find docs at  https://www.npmjs.com/package/ngx-translate-multi-http-loader and https://indepth.dev/implementing-multi-language-angular-applications-rendered-on-server/"
+    },
+    {
+        "feature": "Used Rxweb Validators",
+        "description": "Here I have tried to make pretty much well organized form operations based on Rxweb validators you can find docs and example at https://www.npmjs.com/package/@rxweb/reactive-form-validators and examples at https://www.codementor.io/@ushmidave905/power-of-rxwebvalidators-18lrjkjl3t"
+    }
+]
