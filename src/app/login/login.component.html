@@ -12,6 +12,7 @@
                 </mat-card-title>
                 <mat-card-content class="p-20 text-align-center">
                     <form *ngIf="userRegistrationFormGroup" [formGroup]="userRegistrationFormGroup" (ngSubmit)="login()">
+                        <mat-error *ngIf="isUserCorrect" align=start>Username or Password incorrect</mat-error>
                         <mat-form-field class="w-100">
                             <mat-label>Email</mat-label>
                             <input formControlName="email" matInput placeholder="Enter your username">
