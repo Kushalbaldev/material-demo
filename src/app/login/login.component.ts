@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { LoggedInUser } from '../models/loggedinUser';
 import { User } from '../models/user';
 import { UserService } from '../user.service';
 
@@ -32,11 +33,12 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): any {
-
+    console.log('inlogin');
     if (this.userRegistrationFormGroup.valid) {
       const email = this.userRegistrationFormGroup.controls.email.value;
-
+      console.log(email);
       this.userService.getUserByEmail(email).subscribe(res => {
+        console.log(res);
         if (res !== null && typeof res !== 'undefined' && res.length > 0) {
           this.user = res[0];
           if (this.validateUser(this.user)) {
@@ -62,7 +64,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user = new User();
+    const user = new LoggedInUser();
     this.userRegistrationFormGroup = this.formBuilder.formGroup(user);
   }
 

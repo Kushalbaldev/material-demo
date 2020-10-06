@@ -19,6 +19,7 @@ import { ThemechangerComponent } from './themechanger/themechanger.component';
 import { UsersComponent } from './users/users.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProfileComponent } from './profile/profile.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProfileComponent } from './profile/profile.component';
     AppFeatureComponent,
     ThemechangerComponent,
     UsersComponent,
-    ProfileComponent
+    ProfileComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
