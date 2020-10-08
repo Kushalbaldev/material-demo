@@ -1,12 +1,11 @@
-<div style="height: 80%;" fxLayout="column" fxLayoutAlign="center center">
-
-    <div class="example-container mat-elevation-z8">
-        <div class="example-loading-shade" *ngIf="isLoadingResults">
+<div fxLayout="row" fxLayoutAlign="center center" style="padding:20px; padding-top: 10%;">
+    <div fxFill fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="example-container mat-elevation-z8">
+        <div fxFill class="example-loading-shade" *ngIf="isLoadingResults">
             <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
         </div>
 
-        <div class="example-table-container">
-            <table mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+        <div fxFill fxLayoutAlign="center center" class="example-table-container">
+            <table fxFill mat-table [dataSource]="dataSource" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
                 <!-- Number Column -->
                 <ng-container matColumnDef="firstName">
                     <th mat-header-cell *matHeaderCellDef> First Name </th>
@@ -39,6 +38,6 @@
             </table>
         </div>
 
-        <mat-paginator [length]="resultsLength" [pageSize]="8"></mat-paginator>
+        <mat-paginator fxFill [length]="resultsLength" [pageSize]="8"></mat-paginator>
     </div>
 </div>
