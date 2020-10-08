@@ -1,12 +1,14 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 import { User } from '../models/user';
+import { SnackBarService } from '../snack-bar.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -14,11 +16,13 @@ import { UserService } from '../user.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   userRegistrationFormGroup: FormGroup;
 
-  private usersave: User;
+  private signupFormValue: User;
+
+  alreadyHaveAnAccountSubscription: Subscription;
 
   isHandset$: Observable<boolean> = this.breakPointObserver.
     observe(Breakpoints.Handset).
@@ -27,36 +31,33 @@ export class SignupComponent implements OnInit {
     );
 
   // tslint:disable-next-line: max-line-length
-  constructor(private breakPointObserver: BreakpointObserver, private router: Router, private formBuilder: RxFormBuilder, private userService: UserService, private snackBar: MatSnackBar) { }
+  constructor(private breakPointObserver: BreakpointObserver, private router: Router, private formBuilder: RxFormBuilder, private authService: AuthService, private snackBarService: SnackBarService, private userService: UserService) { }
 
   ngOnInit(): void {
     const user = new User();
     this.userRegistrationFormGroup = this.formBuilder.formGroup(user);
   }
 
-  public signup(): any {
-    if (this.userRegistrationFormGroup.valid) {
-      this.usersave = this.userRegistrationFormGroup.value;
-      this.userService.getUserByEmail(this.usersave.email).subscribe(res => {
-        if (res !== null && typeof res !== 'undefined' && res.length > 0) {
-          this.openSnackbar('Cannot create account.An account with same email already Exists', '');
-        } else {
-          this.openSnackbar('Account Created', 'Congratulations');
-          this.userService.createUser(this.usersave);
-        }
-      });
-
-      console.log(this.usersave);
-    } else {
-      console.log('Not Valid');
-    }
+  ngOnDestroy(): void {
+    // this.alreadyHaveAnAccountSubscription.unsubscribe();
   }
 
-  openSnackbar(message: string, action: string): any {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
-    });
+  public signup(): any {
+    if (this.userRegistrationFormGroup.valid) {
+      this.signupFormValue = this.userRegistrationFormGroup.value;
+      const email = this.signupFormValue.email;
+      this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(email).subscribe(res => {
+        console.log(res);
+        if (res) {
+          this.snackBarService.openSnackbar('Congratulations', 'Accoount created successfully');
+          this.userService.createUser(this.signupFormValue);
+          this.router.navigate(['/main-view/dashboard']);
+          this.alreadyHaveAnAccountSubscription.unsubscribe();
+        } else {
+          this.snackBarService.openSnackbar('Cannot create account.An account with same email already Exists', '');
+          this.alreadyHaveAnAccountSubscription.unsubscribe();
+        }
+      });
+    }
   }
 }

@@ -2,7 +2,7 @@ import { contains, email, password, prop, required } from '@rxweb/reactive-form-
 
 export class User {
 
-        public id: number;
+        key: string;
         @required({ message: 'This field is required' })
         public firstName: string;
         @required({ message: 'This field is required' })

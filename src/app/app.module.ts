@@ -20,6 +20,15 @@ import { UsersComponent } from './users/users.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +42,7 @@ import { SignupComponent } from './signup/signup.component';
     ThemechangerComponent,
     UsersComponent,
     ProfileComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +54,11 @@ import { SignupComponent } from './signup/signup.component';
     RxReactiveFormsModule,
     LangTranslateModule,
     SpellCheckerModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule, MatTableModule, MatPaginatorModule, MatSortModule // storage
   ],
   providers: [SpellCheckerService],
   bootstrap: [AppComponent]

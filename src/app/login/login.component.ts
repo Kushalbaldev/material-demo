@@ -1,12 +1,14 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 import { LoggedInUser } from '../models/loggedinUser';
 import { User } from '../models/user';
+import { SnackBarService } from '../snack-bar.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -14,7 +16,12 @@ import { UserService } from '../user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  alreadyHaveAnAccountSubscription: Subscription;
+
+  validateLoginSubscription: Subscription;
+
   userRegistrationFormGroup: FormGroup;
 
   user: User;
@@ -29,37 +36,41 @@ export class LoginComponent implements OnInit {
 
 
   // tslint:disable-next-line: max-line-length
-  constructor(private breakPointObserver: BreakpointObserver, private router: Router, private formBuilder: RxFormBuilder, private userService: UserService) {
+  constructor(private breakPointObserver: BreakpointObserver, private router: Router, private formBuilder: RxFormBuilder, private authService: AuthService, private snackBarService: SnackBarService) {
+  }
+
+  ngOnDestroy(): void {
+    // this.validateLoginSubscription.unsubscribe();
+    // this.alreadyHaveAnAccountSubscription.unsubscribe();
   }
 
   public login(): any {
-    console.log('inlogin');
     if (this.userRegistrationFormGroup.valid) {
       const email = this.userRegistrationFormGroup.controls.email.value;
-      console.log(email);
-      this.userService.getUserByEmail(email).subscribe(res => {
-        console.log(res);
-        if (res !== null && typeof res !== 'undefined' && res.length > 0) {
-          this.user = res[0];
-          if (this.validateUser(this.user)) {
-            this.isUserCorrect = false;
-            this.router.navigate(['main-view']);
-          } else {
-            this.isUserCorrect = true;
-          }
+      const password = this.userRegistrationFormGroup.controls.password.value;
+      this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(email).subscribe(res => {
+        if (!res) {
+          this.checkForValidLogin(email, password);
+          this.alreadyHaveAnAccountSubscription.unsubscribe();
         } else {
-          this.isUserCorrect = true;
+          this.snackBarService.openSnackbar('Account does not exists', '');
+          this.alreadyHaveAnAccountSubscription.unsubscribe();
         }
       });
     }
+
   }
-  validateUser(user: User): boolean {
-    const checkpass = this.userRegistrationFormGroup.controls.password.value;
-    if (user.password === checkpass) {
-      return true;
-    } else {
-      return false;
-    }
+  checkForValidLogin(email: string, password: string): any {
+    this.validateLoginSubscription = this.authService.checkValidLogin(email, password).subscribe(res => {
+      if (res) {
+        this.isUserCorrect = false;
+        this.router.navigate(['main-view']);
+        this.validateLoginSubscription.unsubscribe();
+      } else {
+        this.isUserCorrect = true;
+        this.validateLoginSubscription.unsubscribe();
+      }
+    });
 
   }
 
