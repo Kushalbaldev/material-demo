@@ -19,9 +19,14 @@
                 "routerlink": "/main-view/app-feature"
             },
             {
-                "routetext": "Profile",
+                "routetext": "Profil",
                 "icon": "note",
                 "routerlink": "/main-view/profile"
+            },
+            {
+                "routetext": "Reaktion",
+                "icon": "note",
+                "routerlink": "/main-view/feedback"
             }
         ]
     }
