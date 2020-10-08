@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ConfirmDialogueComponent } from './confirm-dialogue/confirm-dialogue.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { MatSortModule } from '@angular/material/sort';
     UsersComponent,
     ProfileComponent,
     SignupComponent,
+    ConfirmDialogueComponent,
   ],
   imports: [
     BrowserModule,
