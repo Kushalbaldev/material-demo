@@ -2,9 +2,6 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Output, OnInit } from
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatTheme } from '../models/theme';
-import { ThemeService } from '../theme.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,6 +27,7 @@ export class MatnavigationComponent implements OnInit {
   }
 
   logout(): any {
+    localStorage.clear();
     this.router.navigate(['']);
   }
 }
