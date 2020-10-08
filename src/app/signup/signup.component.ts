@@ -45,12 +45,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   public signup(): any {
     if (this.userRegistrationFormGroup.valid) {
       this.signupFormValue = this.userRegistrationFormGroup.value;
-      const email = this.signupFormValue.email;
-      this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(email).subscribe(res => {
+      const user = this.signupFormValue as User;
+      user.email = this.signupFormValue.email.toLowerCase();
+      this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(user.email).subscribe(res => {
         console.log(res);
         if (res) {
-          this.snackBarService.openSnackbar('Congratulations', 'Accoount created successfully');
-          this.userService.createUser(this.signupFormValue);
+          this.snackBarService.openSnackbar('Congratulations', 'Account created successfully');
+          this.userService.createUser(user);
           this.router.navigate(['/main-view/dashboard']);
           this.alreadyHaveAnAccountSubscription.unsubscribe();
         } else {

@@ -9,7 +9,6 @@ import { AuthService } from '../auth.service';
 import { LoggedInUser } from '../models/loggedinUser';
 import { User } from '../models/user';
 import { SnackBarService } from '../snack-bar.service';
-import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -46,11 +45,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public login(): any {
     if (this.userRegistrationFormGroup.valid) {
-      const email = this.userRegistrationFormGroup.controls.email.value;
+      const email = this.userRegistrationFormGroup.controls.email.value as string;
       const password = this.userRegistrationFormGroup.controls.password.value;
-      this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(email).subscribe(res => {
+      this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(email.toLowerCase()).subscribe(res => {
         if (!res) {
-          this.checkForValidLogin(email, password);
+          this.checkForValidLogin(email.toLowerCase(), password);
           this.alreadyHaveAnAccountSubscription.unsubscribe();
         } else {
           this.snackBarService.openSnackbar('Account does not exists', '');
