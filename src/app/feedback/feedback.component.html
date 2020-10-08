@@ -1,0 +1,16 @@
+<div style="height: 80%;" fxlayout="column" fxLayoutAlign="center center">
+
+    <div style="text-align: center;">
+        <div>
+            <h2>Give a heart by pressing it if you liked the app..!!</h2>
+        </div>
+        Did you like the app?
+        <button (click)="toggleLike()" mat-icon-button [color]='likesColor'>
+            <mat-icon>favorite</mat-icon>
+        </button>
+
+    </div>
+    <div #imgdiv style="display: none; position: absolute;">
+        <img width="120" height="120" alt="Angular Logo" src={{likeEmojiPath}} />
+    </div>
+</div>

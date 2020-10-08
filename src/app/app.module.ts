@@ -29,6 +29,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ConfirmDialogueComponent } from './confirm-dialogue/confirm-dialogue.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ConfirmDialogueComponent } from './confirm-dialogue/confirm-dialogue.co
     ProfileComponent,
     SignupComponent,
     ConfirmDialogueComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,

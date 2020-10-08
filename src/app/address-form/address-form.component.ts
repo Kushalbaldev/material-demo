@@ -30,10 +30,7 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
   display = 'flex';
   dm = 'margin';
   show = true;
-  like = false;
-  likesColor = 'primary';
-  likeEmojiPath = 'assets/image/login.png';
-  @ViewChild('imgdiv') imgdiv: ElementRef;
+
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   private spellcheckSubscription: Subscription;
   public suggestedWord = '';
@@ -89,7 +86,6 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.imgdiv.nativeElement.style.display = 'none';
     let value = '';
     const formValue = this.addressForm.valueChanges;
 
@@ -128,21 +124,7 @@ export class AddressFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mySpellcheck.suggestionValue.next(null);
   }
 
-  public toggleLike(): void {
-    this.like = !this.like;
-    this.showImages(this.like);
-    this.likesColor = this.like ? 'warn' : 'primary';
-  }
-
-  public showImages(like: boolean): void {
-    this.likeEmojiPath = like
-      ? 'assets/image/login.png'
-      : 'assets/image/cry.gif';
-    this.imgdiv.nativeElement.style.display = 'block';
-    timer(900).subscribe((res) => {
-      this.imgdiv.nativeElement.style.display = 'none';
-    });
-  }
+  
 
   ngOnDestroy(): void {
     this.spellcheckSubscription.unsubscribe();

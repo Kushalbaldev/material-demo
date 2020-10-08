@@ -91,15 +91,3 @@
         </form>
     </div>
 </div>
-
-<div [class.show]="show" class="w-100 align-child-center h-80">
-    <div>
-        Did you like the app?
-        <button (click)="toggleLike()" mat-icon-button [color]='likesColor'>
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <div #imgdiv style="padding-left: 60px; display: none; position: absolute;">
-            <img width="60" height="60" alt="Angular Logo" src={{likeEmojiPath}} />
-        </div>
-    </div>
-</div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppFeatureComponent } from './app-feature/app-feature.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 import { LoginComponent } from './login/login.component';
 import { MatnavigationComponent } from './matnavigation/matnavigation.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -48,6 +49,10 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent
+      },
+      {
+        path: 'feedback',
+        component: FeedbackComponent
       },
 
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }

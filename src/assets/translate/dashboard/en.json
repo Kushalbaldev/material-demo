@@ -22,6 +22,11 @@
                 "routetext": "Profile",
                 "icon": "note",
                 "routerlink": "/main-view/profile"
+            },
+            {
+                "routetext": "Feedback",
+                "icon": "note",
+                "routerlink": "/main-view/feedback"
             }
         ]
     }
