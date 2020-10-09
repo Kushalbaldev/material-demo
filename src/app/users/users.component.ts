@@ -4,8 +4,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import * as equal from 'fast-deep-equal';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 import { ConfirmDialogueService } from '../confirm-dialogue.service';
 import { User } from '../models/user';
+import { SnackBarService } from '../snack-bar.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -29,7 +31,8 @@ export class UsersComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
 
-  constructor(private userService: UserService, private confirmDialogueService: ConfirmDialogueService) {
+  // tslint:disable-next-line: max-line-length
+  constructor(private userService: UserService, private confirmDialogueService: ConfirmDialogueService, private authService: AuthService, private snackbarService: SnackBarService) {
     this.dataSource = new MatTableDataSource();
   }
 
@@ -50,14 +53,15 @@ export class UsersComponent implements OnInit {
 
   }
 
-  openDialog(row): any {
+  openDialog(row: User): any {
 
     const selectedUser = row as User;
     const localestorage: string = localStorage.getItem('loggedInUser');
     const loggedInUser = (JSON.parse(localestorage) as User);
     let options = null;
+    const isLoggedInInUser = equal(selectedUser, loggedInUser);
 
-    if (equal(selectedUser, loggedInUser)) {
+    if (isLoggedInInUser) {
       options = {
         title: 'Delete your Account?',
         message: 'You are about to delete your own account and will be redirected to Login.',
@@ -79,6 +83,11 @@ export class UsersComponent implements OnInit {
     this.confirmDialogueService.confirmed().subscribe(confirmed => {
       if (confirmed) {
         this.userService.deleteUsers(row.key);
+        if (isLoggedInInUser) {
+          this.authService.logout();
+        } else {
+          this.snackbarService.openSnackbar('mail sent to' + ' ' + selectedUser.firstName + ' ' + selectedUser.lastName, '');
+        }
       }
     });
   }
