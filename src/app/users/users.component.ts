@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as equal from 'fast-deep-equal';
 import { map } from 'rxjs/operators';
 import { ConfirmDialogueService } from '../confirm-dialogue.service';
 import { User } from '../models/user';
@@ -51,18 +52,33 @@ export class UsersComponent implements OnInit {
 
   openDialog(row): any {
 
-    const options = {
-      title: 'Delete Registered User?',
-      message: 'Users Account Will be Deleted and all data will be lost.',
-      cancelText: 'No',
-      confirmText: 'Yes'
-    };
+    const selectedUser = row as User;
+    const localestorage: string = localStorage.getItem('loggedInUser');
+    const loggedInUser = (JSON.parse(localestorage) as User);
+    let options = null;
+
+    if (equal(selectedUser, loggedInUser)) {
+      options = {
+        title: 'Delete your Account?',
+        message: 'You are about to delete your own account and will be redirected to Login.',
+        cancelText: 'No Way',
+        confirmText: 'Yes sure'
+      };
+    } else {
+      options = {
+        title: 'Delete Registered User?',
+        message: 'A mail will be sent to' + ' ' + selectedUser.firstName + ' ' + selectedUser.lastName + ' ' + 'about account deletion.',
+        cancelText: 'No',
+        confirmText: 'Yes'
+      };
+    }
+
 
     this.confirmDialogueService.open(options);
 
     this.confirmDialogueService.confirmed().subscribe(confirmed => {
       if (confirmed) {
-         this.userService.deleteUsers(row.key);
+        this.userService.deleteUsers(row.key);
       }
     });
   }

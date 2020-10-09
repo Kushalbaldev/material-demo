@@ -48,7 +48,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       const user = this.signupFormValue as User;
       user.email = this.signupFormValue.email.toLowerCase();
       this.alreadyHaveAnAccountSubscription = this.authService.checkAlreadyHaveAnAccount(user.email).subscribe(res => {
-        console.log(res);
         if (res) {
           this.snackBarService.openSnackbar('Congratulations', 'Account created successfully');
           this.userService.createUser(user);
