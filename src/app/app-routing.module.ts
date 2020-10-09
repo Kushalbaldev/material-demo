@@ -29,6 +29,7 @@ const routes: Routes = [
   {
     path: 'main-view',
     component: MatnavigationComponent,
+    canActivate: [GuardGuard],
     children: [
       {
         path: '',
@@ -42,19 +43,23 @@ const routes: Routes = [
       },
       {
         path: 'app-feature',
-        component: AppFeatureComponent
+        component: AppFeatureComponent,
+        canActivate: [GuardGuard]
       },
       {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [GuardGuard]
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate: [GuardGuard]
       },
       {
         path: 'feedback',
-        component: FeedbackComponent
+        component: FeedbackComponent,
+        canActivate: [GuardGuard]
       },
 
       { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }

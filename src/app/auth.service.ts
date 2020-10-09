@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from './models/user';
@@ -10,7 +11,7 @@ import { UserService } from './user.service';
 export class AuthService {
 
   private loggedInUser: User = null;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   checkValidLogin(username: string, password: string): Observable<boolean> {
     // tslint:disable-next-line: max-line-length
@@ -48,5 +49,11 @@ export class AuthService {
         }
       }
     }
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.loggedInUser = null;
+    this.router.navigate(['']);
   }
 }

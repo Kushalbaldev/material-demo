@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, EventEmitter, Output, OnInit } from
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-matnavigation',
@@ -19,7 +19,7 @@ export class MatnavigationComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
 
   }
 
@@ -27,7 +27,6 @@ export class MatnavigationComponent implements OnInit {
   }
 
   logout(): any {
-    localStorage.clear();
-    this.router.navigate(['']);
+    this.authService.logout();
   }
 }
