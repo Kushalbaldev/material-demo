@@ -7,6 +7,7 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { ViewNames } from '../commons/viewnames';
 import { User } from '../models/user';
 import { SnackBarService } from '../snack-bar.service';
 import { UserService } from '../user.service';
@@ -51,7 +52,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         if (res) {
           this.snackBarService.openSnackbar('Congratulations', 'Account created successfully');
           this.userService.createUser(user);
-          this.router.navigate(['/main-view/dashboard']);
+          this.router.navigate([ViewNames.MAIN_VIEW_DASHBOARD]);
           this.alreadyHaveAnAccountSubscription.unsubscribe();
         } else {
           this.snackBarService.openSnackbar('Cannot create account.An account with same email already Exists', '');

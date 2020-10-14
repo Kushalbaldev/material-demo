@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppFeatureComponent } from './app-feature/app-feature.component';
+import { ViewNames } from './commons/viewnames';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { GuardGuard } from './guard.guard';
@@ -12,61 +13,60 @@ import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
+    path: ViewNames.DEFAULT_VIEW,
+    redirectTo: ViewNames.LOGIN_VIEW,
     pathMatch: 'full'
   },
 
   {
-    path: 'login',
+    path: ViewNames.LOGIN_VIEW,
     component: LoginComponent
   },
   {
-    path: 'signup',
+    path: ViewNames.SIGNUP_VIEW,
     component: SignupComponent
   },
 
   {
-    path: 'main-view',
+    path: ViewNames.MAIN_VIEW,
     component: MatnavigationComponent,
     canActivate: [GuardGuard],
     children: [
       {
-        path: '',
-        redirectTo: 'dashboard',
+        path: ViewNames.DEFAULT_VIEW,
+        redirectTo: ViewNames.DASHBOARD_VIEW,
         pathMatch: 'full'
       },
       {
-        path: 'dashboard',
+        path: ViewNames.DASHBOARD_VIEW,
         component: DashboardComponent,
         canActivate: [GuardGuard],
       },
       {
-        path: 'app-feature',
+        path: ViewNames.APP_FEATURE_VIEW,
         component: AppFeatureComponent,
         canActivate: [GuardGuard]
       },
       {
-        path: 'users',
+        path: ViewNames.USERS_VIEW,
         component: UsersComponent,
         canActivate: [GuardGuard]
       },
       {
-        path: 'profile',
+        path: ViewNames.PROFILE_VIEW,
         component: ProfileComponent,
         canActivate: [GuardGuard]
       },
       {
-        path: 'feedback',
+        path: ViewNames.FEEDBACK_VIEW,
         component: FeedbackComponent,
         canActivate: [GuardGuard]
       },
 
-      { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
+      { path: '**', redirectTo: ViewNames.DASHBOARD_VIEW, pathMatch: 'full' }
     ]
   },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
-
+  { path: '**', redirectTo: ViewNames.LOGIN_VIEW, pathMatch: 'full' }
 
 ];
 

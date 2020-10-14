@@ -12,10 +12,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private themeSubscription: Subscription;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private _themeService: ThemeService) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.themeSubscription = this._themeService.themechangerSubject.subscribe(res => {
+    this.themeSubscription = this.themeService.themechangerSubject.subscribe(res => {
       this.renderer.setAttribute(this.document.body, 'class', res);
     });
   }

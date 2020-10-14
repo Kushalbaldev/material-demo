@@ -6,6 +6,7 @@ import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { ViewNames } from '../commons/viewnames';
 import { LoggedInUser } from '../models/loggedinUser';
 import { User } from '../models/user';
 import { SnackBarService } from '../snack-bar.service';
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.validateLoginSubscription = this.authService.checkValidLogin(email, password).subscribe(res => {
       if (res) {
         this.isUserCorrect = false;
-        this.router.navigate(['main-view']);
+        this.router.navigate([ViewNames.MAIN_VIEW]);
         this.validateLoginSubscription.unsubscribe();
       } else {
         this.isUserCorrect = true;
