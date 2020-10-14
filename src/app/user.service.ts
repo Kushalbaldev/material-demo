@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from './models/user';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { EndPoints } from './commons/endpoints';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private dbPath = '/users';
+  private dbPath = EndPoints.USER_ENDPOINT;
 
   userRef: AngularFirestoreCollection<User> = null;
 
