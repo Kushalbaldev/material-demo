@@ -27,7 +27,7 @@
                         </mat-card-content>
                     </mat-card>
                 </mat-menu>
-                <button style="right: 70px;" mat-icon-button [matMenuTriggerFor]="palleteMenu">
+                <button *appUserRole="[ 2 ]" style="right: 70px;" mat-icon-button [matMenuTriggerFor]="palleteMenu">
                     <mat-icon>palette</mat-icon>Theme
                 </button>
                 <button style="right: 30px;" (click)="logout()" mat-raised-button color="accent">Logout</button>

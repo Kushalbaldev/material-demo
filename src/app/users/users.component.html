@@ -27,7 +27,7 @@
                     <th mat-header-cell *matHeaderCellDef>
                     </th>
                     <td mat-cell *matCellDef="let row">
-                        <button (click)="openDialog(row)" mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                        <button *appUserRole="[ 2 ]" (click)="openDialog(row)" mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
                             <mat-icon>delete</mat-icon>
                           </button>
                     </td>

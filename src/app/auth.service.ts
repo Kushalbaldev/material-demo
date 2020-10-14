@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Role } from './enums/role';
 import { User } from './models/user';
 import { UserService } from './user.service';
 
@@ -55,5 +56,12 @@ export class AuthService {
     localStorage.clear();
     this.loggedInUser = null;
     this.router.navigate(['']);
+  }
+
+  hasRole(role: Role): boolean {
+    console.log(this.loggedInUser.role === role);
+    console.log(role);
+    console.log(this.loggedInUser.role);
+    return this.loggedInUser.role === role;
   }
 }

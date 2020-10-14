@@ -1,4 +1,5 @@
 import { contains, email, password, prop, required } from '@rxweb/reactive-form-validators';
+import { Role } from '../enums/role';
 
 export class User {
 
@@ -9,7 +10,7 @@ export class User {
         public lastName: string;
 
         @prop()
-        public role: string;
+        public role: Role;
 
         @email({ message: 'Enter valid email' })
         @required({ message: 'This field is required' })

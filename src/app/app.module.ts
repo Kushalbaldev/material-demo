@@ -30,6 +30,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ConfirmDialogueComponent } from './confirm-dialogue/confirm-dialogue.component';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { AppRolesDirective } from './app-roles.directive';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
     SignupComponent,
     ConfirmDialogueComponent,
     FeedbackComponent,
+    AppRolesDirective,
   ],
   imports: [
     BrowserModule,
